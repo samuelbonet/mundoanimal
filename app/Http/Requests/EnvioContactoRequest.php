@@ -25,7 +25,6 @@ class EnvioContactoRequest extends FormRequest
             'nombre' => ['required', 'string'],
             'apellido' => ['required', 'string'],
             'correo' => ['required', 'email'],
-            'id_restaurante' => ['nullable', 'integer'],
             'mensaje' => ['required', 'string'],
         ];
     }
@@ -34,8 +33,7 @@ class EnvioContactoRequest extends FormRequest
     public function attributes() 
     {
         return [
-            'correo' => 'correo electrónico',
-            'id_restaurante' => 'restaurante'
+            'correo' => 'correo electrónico'
         ];
     }
 

@@ -29,7 +29,7 @@ class EnvioContacto extends Mailable
     {
         return new Envelope(
             to: ['samuelbonetweb@gmail.com'], // Correo de destino
-            subject: 'Formulario de contacto MundoAnimal', // Asunto del correo
+            subject: 'Formulario de contacto Mundo Animal', // Asunto del correo
         );
     }
 

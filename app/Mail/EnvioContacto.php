@@ -23,7 +23,7 @@ class EnvioContacto extends Mailable
     }
 
     /**
-     * Configurar el sobre del correo.
+     * Configurar la dirección y asunto del correo.
      */
     public function envelope(): Envelope
     {
@@ -41,13 +41,5 @@ class EnvioContacto extends Mailable
         return new Content(
             view: 'mail.envio-contacto', // Vista para el correo
         );
-    }
-
-    /**
-     * Adjuntos del mensaje (si los hubiera).
-     */
-    public function attachments(): array
-    {
-        return [];
     }
 }

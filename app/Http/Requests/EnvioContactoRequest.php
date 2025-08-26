@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 class EnvioContactoRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
+     * Determina si el usuario está autorizado para la solicitud
      */
     public function authorize(): bool
     {
@@ -15,9 +15,9 @@ class EnvioContactoRequest extends FormRequest
     }
 
     /**
-     * Get the validation rules that apply to the request.
+     * Para obtener las reglas de validación
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, 
      */
     public function rules(): array
     {

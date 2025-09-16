@@ -29,9 +29,11 @@
                 </div>
             @endif
 
+            {{-- Formulario de cambio de contraseña --}}
             <form action="{{ route('password.update') }}" method="POST">
                 @csrf
 
+                {{-- Contraseña actual --}}
                 <div class="mb-3">
                     <label for="actual_contrasena" class="form-label">Contraseña actual</label>
                     <input type="password" name="actual_contrasena" class="form-control" required>
@@ -40,6 +42,7 @@
                     @enderror
                 </div>
 
+                {{-- Nueva contraseña --}}
                 <div class="mb-3">
                     <label for="password" class="form-label">Nueva contraseña</label>
                     <input type="password" name="password" class="form-control" required>
@@ -48,11 +51,13 @@
                     @enderror
                 </div>
 
+                {{-- Confirmar nueva contraseña --}}
                 <div class="mb-3">
                     <label for="password_confirmation" class="form-label">Confirmar nueva contraseña</label>
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
-
+                
+                {{-- Botón de cambiar contraseña --}}
                 <div class="d-grid">
                     <button type="submit" class="btn btn-primary">Cambiar contraseña</button>
                 </div>

@@ -35,4 +35,5 @@ class MundoanimalController extends Controller
     $plantilla->setTitle('FAQ');
     return $plantilla->view('faq');
 }
+
 }

@@ -14,24 +14,31 @@
     <div class="card shadow-sm p-4" style="width: 100%; max-width: 400px;">
         <h3 class="text-center mb-4">Intranet Mundo Animal</h3>
 
+        <!-- Si hay errores al validar, se muestra en un alert -->
         @if ($errors->any())
             <div class="alert alert-danger">
                 {{ $errors->first() }}
             </div>
         @endif
 
+        <!-- Formulario de login -->
         <form action="{{ route('login') }}" method="POST">
-            @csrf
+
+            @csrf <!-- Token seguridad -->
+
+            <!-- Campo de correo electrónico -->
             <div class="mb-3">
                 <label for="email" class="form-label">Correo electrónico</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="tu@email.com" required>
             </div>
 
+            <!-- Campo de contraseña -->
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password" name="password" placeholder="••••••••" required>
             </div>
 
+            <!-- Botón de entrar -->
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary">Entrar</button>
             </div>

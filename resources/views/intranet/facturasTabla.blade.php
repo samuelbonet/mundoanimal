@@ -1,51 +1,50 @@
 @extends('adminlte::page')
 
-@section('title', 'Listado de Facturas')
-
 @section('content')
-<div class="d-flex justify-content-center mt-5">
-    <div class="card shadow w-100" style="max-width: 900px;">
-        <div class="card-header bg-success bg-gradient text-white text-center">
-            <h4 class="mb-0">Listado de Facturas</h4>
-        </div>
-        <div class="card-body">
-            <div class="table-responsive">
-                <table class="table table-bordered table-hover align-middle">
-                    <thead class="table-success">
-                        <tr class="text-center">
-                            <th>#</th>
-                            <th>Fecha Emisión</th>
-                            <th>Concepto</th>
-                            <th>Total</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>01/09/2025</td>
-                            <td>Consulta veterinaria</td>
-                            <td>$50.00</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>02/09/2025</td>
-                            <td>Vacunación</td>
-                            <td>$30.00</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <!-- Agrega más filas estáticas aquí -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-@stop
+<h1>Lista de Facturas</h1>
+
+@if(session('success'))
+    <div class="alert alert-success">{{ session('success') }}</div>
+@endif
+
+<a href="{{ route('facturas.create') }}" class="btn btn-primary mb-3">Nueva Factura</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Fecha de Emisión</th>
+            <th>Concepto</th>
+            <th>Precio</th>
+            <th>PDF</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach($facturas as $factura)
+            <tr>
+                <td>{{ $factura->id_factura }}</td>
+                <td>{{ $factura->cliente->nombre }} {{ $factura->cliente->apellidos }}</td>
+                <td>{{ \Carbon\Carbon::parse($factura->fecha_emision)->format('d/m/Y H:i') }}</td>
+                <td>{{ $factura->concepto }}</td>
+                <td>{{ number_format($factura->precio, 2) }} €</td>
+                <td>
+                    <a href="{{ route('facturas.pdf', $factura) }}" class="btn btn-sm btn-danger" target="_blank">
+                        Descargar PDF
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('facturas.edit', $factura) }}" class="btn btn-sm btn-warning">Editar</a>
+                    <form action="{{ route('facturas.destroy', $factura) }}" method="POST" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-sm btn-danger"
+                            onclick="return confirm('¿Seguro que quieres eliminar esta factura?')">Eliminar</button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </tbody>
+</table>
+@endsection

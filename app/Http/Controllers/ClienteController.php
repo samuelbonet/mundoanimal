@@ -16,7 +16,10 @@ class ClienteController extends Controller
     // Aquí mostrará formulario de edición
     public function edit(Cliente $cliente)
     {
-        return view('intranet.clientesEdit', compact('cliente'));
+        return view('intranet.gestionClientesFormulario', [
+            'mode' => 'update',
+            'cliente' => $cliente
+        ]);
     }
 
     // Aquí eliminará del formulario al cliente
@@ -29,7 +32,10 @@ class ClienteController extends Controller
     // Muestra formulario en el que se registra a cliente
     public function create()
     {
-        return view('intranet.gestionClientesFormulario');
+        return view('intranet.gestionClientesFormulario', [
+            'mode' => 'create',
+            'cliente' => null
+        ]);
     }
 
     // Guarda cliente nuevo
@@ -46,6 +52,22 @@ class ClienteController extends Controller
         Cliente::create($request->all());
 
         return redirect()->route('clientes.index')->with('success', 'Cliente registrado correctamente.');
+    }
+
+    //Actualizará cliente una vez editado
+    public function update(Cliente $cliente, Request $request)
+    {
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'apellidos' => 'required|string|max:255',
+            'telefono' => 'required|string|max:20',
+            'correo' => 'nullable|email|max:255',
+            'direccion' => 'required|string|max:255',
+        ]);
+
+        $cliente->update($request->all());
+
+        return redirect()->route('clientes.index');
     }
 
 }

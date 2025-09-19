@@ -9,7 +9,13 @@ class Cliente extends Model
 {
     use HasFactory;
 
-    //Se define campos
+    // Nombre de la tabla 
+    protected $table = 'clientes';
+
+    // Clave primaria 
+    protected $primaryKey = 'id_cliente';
+
+    // Campos
     protected $fillable = [
         'nombre',
         'apellidos',
@@ -17,4 +23,19 @@ class Cliente extends Model
         'correo',
         'direccion',
     ];
+
+    public function citas()
+    {
+        return $this->hasMany(Cita::class, 'id_cliente', 'id_cliente');
+    }
+
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class, 'id_cliente', 'id_cliente');
+    }
+
+    public function peluquerias()
+    {
+        return $this->hasMany(Peluqueria::class, 'id_cliente', 'id_cliente');
+    }
 }

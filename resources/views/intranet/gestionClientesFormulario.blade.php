@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center" style="min-height: 80vh; bg-gradient">
     <div class="card shadow mt-5" style="width: 100%; max-width: 500px;">
         <div class="card-header text-center bg-success bg-gradient">
-            <h4 class="mb-0">Registrar Cliente</h4>
+            <h4 class="mb-0">{{ $mode == 'create' ? 'Registrar' : 'Editar'}} Cliente </h4>
         </div>
         <div class="card-body">
             
@@ -30,13 +30,13 @@
             @endif
 
             {{-- Formulario de registro de cita --}}
-            <form action="{{ route('clientes.store') }}" method="POST">
+            <form action="{{ $mode == 'create' ? route('clientes.store') : route('clientes.update', $cliente?->id_cliente) }}" method="POST">
                 @csrf
 
                 {{-- Nombre --}}
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre <span class="text-danger">*</span></label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                    <input type="text" id="nombre" name="nombre" value="{{ $cliente?->nombre }}" class="form-control" required>
                     @error('nombre')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -45,7 +45,7 @@
                 {{-- Apellidos --}}
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos <span class="text-danger">*</span></label>
-                    <input type="text" id="apellidos" name="apellidos" class="form-control" required>
+                    <input type="text" id="apellidos" name="apellidos" value="{{ $cliente?->apellidos }}" class="form-control" required>
                     @error('apellidos')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -54,7 +54,7 @@
                 {{-- Teléfono --}}
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Teléfono <span class="text-danger">*</span></label>
-                    <input type="text" id="telefono" name="telefono" class="form-control" required>
+                    <input type="text" id="telefono" name="telefono" value="{{ $cliente?->telefono}}" class="form-control" required>
                     @error('telefono')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -63,7 +63,7 @@
                 {{-- Correo electrónico --}}
                 <div class="mb-3">
                     <label for="correo" class="form-label">Correo electrónico</label>
-                    <input type="email" id="correo" name="correo" class="form-control">
+                    <input type="email" id="correo" name="correo" value="{{ $cliente?->correo }}" class="form-control">
                     @error('correo')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -72,7 +72,7 @@
                 {{-- Dirección --}}
                 <div class="mb-3">
                     <label for="direccion" class="form-label">Dirección <span class="text-danger">*</span></label>
-                    <input type="text" id="direccion" name="direccion" class="form-control" required>
+                    <input type="text" id="direccion" name="direccion" value="{{ $cliente?->direccion }}" class="form-control" required>
                     @error('direccion')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -80,7 +80,9 @@
 
                 {{-- Boto+ón registrar --}}
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-success">Registrar Cliente</button>
+                    <button type="submit" class="btn btn-success">
+                        {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Cliente
+                    </button>
                 </div>
             </form>
         </div>

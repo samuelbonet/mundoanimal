@@ -15,9 +15,10 @@ return new class extends Migration {
             $table->unsignedBigInteger('id_mascota');
             $table->date('fecha_aplicacion');
             $table->string('vacuna');
-            $table->text('observacion')->nullable();
+            $table->text('observaciones')->nullable();
             $table->timestamps();
 
+            // Clave foránea con tabla mascotas
             $table->foreign('id_mascota')
                 ->references('id_mascota')
                 ->on('mascotas')

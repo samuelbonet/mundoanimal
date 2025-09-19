@@ -36,8 +36,8 @@
                                         <td>{{ $cliente->correo }}</td>
                                         <td>{{ $cliente->direccion }}</td>
                                         <td class="text-center">
-                                            <a href="" class="btn btn-sm btn-primary">Editar</a>
-                                            <form action="" method="POST" class="d-inline">
+                                            <a href="{{ route('clientes.edit', $cliente->id_cliente) }}" class="btn btn-sm btn-primary">Editar</a>
+                                            <form action="{{route ("clientes.destroy",$cliente->id_cliente)}}" method="POST" class="d-inline">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Desea eliminar este cliente?')">Eliminar</button>

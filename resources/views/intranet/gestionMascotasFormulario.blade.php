@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center" style="min-height: 80vh;">
     <div class="card shadow mt-5" style="width: 100%; max-width: 600px;">
         <div class="card-header text-center bg-success bg-gradient">
-            <h4 class="mb-0">Registrar Mascota</h4>
+            <h4 class="mb-0"> {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Mascota</h4>
         </div>
         <div class="card-body">
 
@@ -30,16 +30,18 @@
             @endif
 
             {{-- Formulario de registro de mascota --}}
-            <form action="{{ route('mascotas.store') }}" method="POST">
+            <form action="{{ $mode == 'create' ? route('mascotas.store') : route('mascotas.update', $mascota?->id_mascota) }}" method="POST">
                 @csrf
 
                 {{-- Cliente --}}
                 <div class="mb-3">
                     <label for="id_cliente" class="form-label">Cliente</label>
                     <select id="id_cliente" name="id_cliente" class="form-control" required>
-                        <option value="">-- Selecciona un cliente --</option>
+                        <option value="" disabled selected hidden>-- Selecciona un cliente --</option>
                         @foreach ($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->nombre }} {{ $cliente->apellidos }}</option>
+                            <option value="{{ $cliente->id_cliente }}" @if($cliente->id_cliente == $mascota?->id_cliente) selected @endif>
+                                {{ $cliente->nombre }} {{ $cliente->apellidos }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -47,43 +49,41 @@
                 {{-- Nombre mascota --}}
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre de la Mascota</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                <input type="text" id="nombre" name="nombre" value="{{ $mascota?->nombre }}" class="form-control" required>
                 </div>
 
                 {{-- Especie --}}
                 <div class="mb-3">
                     <label for="especie" class="form-label">Especie</label>
                     <select id="especie" name="especie" class="form-control" required>
-                        <option value="">-- Selecciona especie --</option>
-                        <option value="Perro">Perro</option>
-                        <option value="Gato">Gato</option>
-                        <option value="Conejo">Conejo</option>
-                        <option value="Ave">Ave</option>
-                        <option value="Otro">Otro</option>
+                        <option value="" disabled selected hidden>-- Selecciona especie --</option>
+                        @foreach (['Perro', 'Gato', 'Conejo', 'Ave', 'Otro'] as $especie)
+                            <option value="{{ $especie }}" @if($mascota?->especie == $especie) selected @endif>{{ $especie }}</option>
+                        @endforeach
                     </select>
                 </div>
 
                 {{-- Raza --}}
                 <div class="mb-3">
                     <label for="raza" class="form-label">Raza</label>
-                    <input type="text" id="raza" name="raza" class="form-control">
+                    <input type="text" id="raza" name="raza" value="{{ $mascota?->raza }}" class="form-control">
                 </div>
 
                 {{-- Edad --}}
                 <div class="mb-3">
                     <label for="edad" class="form-label">Edad</label>
-                    <input type="number" id="edad" name="edad" class="form-control">
+                    <input type="number" id="edad" name="edad" value="{{ $mascota?->edad }}" class="form-control">
                 </div>
 
                 {{-- Peso --}}
                 <div class="mb-3">
                     <label for="peso" class="form-label">Peso (kg)</label>
-                    <input type="number" step="0.01" id="peso" name="peso" class="form-control">
+                    <input type="number" step="0.01" id="peso" name="peso" value="{{ $mascota?->peso }}" class="form-control">
                 </div>
 
                 {{-- Botón registrar --}}
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-success">Registrar Mascota</button>
+                    <button type="submit"  class="btn btn-success"> {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Mascota</button>
                 </div>
             </form>
         </div>

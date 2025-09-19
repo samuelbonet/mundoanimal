@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center" style="min-height: 80vh; bg-gradient">
     <div class="card shadow mt-5" style="width: 100%; max-width: 500px;">
         <div class="card-header text-center bg-success bg-gradient">
-            <h4 class="mb-0">Registrar Historial Clínico</h4>
+            <h4 class="mb-0"> {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Historial Clínico</h4>
         </div>
         <div class="card-body">
             
@@ -30,17 +30,19 @@
             @endif
 
             {{-- Formulario de registro de historial clínico --}}
-            <form action="" method="POST">
+            <form action="{{ $mode == 'create' ? route('historial.store') : route('historial.update', $historial?->id_historial) }}" method="POST">
                 @csrf
 
                 {{-- Selección mascota --}}
                 <div class="mb-3">
-                    <label for="mascota_id" class="form-label">Mascota <span class="text-danger">*</span></label>
-                    <select id="mascota_id" name="mascota_id" class="form-control" required>
+                    <label for="id_mascota" class="form-label">Mascota <span class="text-danger">*</span></label>
+                    <select id="id_mascota" name="id_mascota" class="form-control" required>
                         <option value="">-- Seleccione una mascota --</option>
-                        {{--@foreach($mascotas as $mascota)
-                            <option value="{{ $mascota->id }}">{{ $mascota->nombre }}</option>
-                        @endforeach --}}
+                         @foreach ($mascotas as $mascota)
+                            <option value="{{ $mascota->id_mascota }}" @if($mascota->id_mascota == $historial?->id_mascota) selected @endif>
+                                {{ $mascota->nombre }}
+                            </option>
+                        @endforeach
                     </select>
                     @error('mascota_id')
                         <span class="text-danger">{{ $message }}</span>
@@ -50,7 +52,7 @@
                 {{-- Fecha de Aplicación --}}
                 <div class="mb-3">
                     <label for="fecha_aplicacion" class="form-label">Fecha de Aplicación <span class="text-danger">*</span></label>
-                    <input type="date" id="fecha_aplicacion" name="fecha_aplicacion" class="form-control" required>
+                    <input type="date" id="fecha_aplicacion" name="fecha_aplicacion" value="{{ $historial?->fecha_aplicacion }}"class="form-control" required>
                     @error('fecha_aplicacion')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -59,7 +61,7 @@
                 {{-- Vacuna/ Tratamiento --}}
                 <div class="mb-3">
                     <label for="vacuna" class="form-label">Vacuna / Tratamiento <span class="text-danger">*</span></label>
-                    <input type="text" id="vacuna" name="vacuna" class="form-control" required>
+                    <input type="text" id="vacuna" name="vacuna" value="{{ $historial?->vacuna }}" class="form-control" required>
                     @error('vacuna')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -68,7 +70,7 @@
                 {{-- Observaciones --}}
                 <div class="mb-3">
                     <label for="observaciones" class="form-label">Observaciones</label>
-                    <textarea id="observaciones" name="observaciones" class="form-control" rows="3"></textarea>
+                    <textarea id="observaciones" name="observaciones" class="form-control" rows="3">{{ $historial?->observaciones }}</textarea>
                     @error('observaciones')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -76,7 +78,7 @@
 
                 {{-- Botón registrar --}}
                 <div class="d-grid">
-                    <button type="submit" class="btn btn-success">Registrar Historial</button>
+                    <button type="submit" class="btn btn-success"> {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Historial</button>
                 </div>
             </form>
         </div>

@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class MensajeFormulario extends Model
 {
-    
     use HasFactory;
 
-    protected $table = "mensajes_formulario"; // Nombre de la tabla en la base de datos
+    //Nombre de la tabla
+    protected $table = "mensajes_formulario";
+
+    //Campos
     protected $guarded = [];
 }

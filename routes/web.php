@@ -1,11 +1,15 @@
 <?php
 
-use App\Http\Controllers\IntranetController;
 use App\Http\Controllers\MundoanimalController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MascotaController;
+use App\Http\Controllers\CitaController;
+use App\Http\Controllers\PeluqueriaController;
+use App\Http\Controllers\FacturaController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -74,11 +78,6 @@ Route::post('/cambiarContrasena', [App\Http\Controllers\UserController::class, '
 |--------------------------------------------------------------------------
 */
 
-//Formulario de registro de cliente
-Route::get('/gestionClientes', function () {
-    return view('intranet.gestionClientesFormulario');
-})->name('gestionClientes');
-
 // Mostrar formulario para registrar
 Route::get('/clientes/crear', [ClienteController::class, 'create'])->name('clientes.create');
 
@@ -91,6 +90,9 @@ Route::get('/clientes', [ClienteController::class, 'index'])->name('clientes.ind
 // Editar cliente
 Route::get('/clientes/{cliente}/edit', [ClienteController::class, 'edit'])->name('clientes.edit');
 
+// Actualizar cliente
+Route::post('/clientes/{cliente}/update', [ClienteController::class, 'update'])->name('clientes.update');
+
 // Eliminar cliente
 Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->name('clientes.destroy');
 
@@ -98,15 +100,25 @@ Route::delete('/clientes/{cliente}', [ClienteController::class, 'destroy'])->nam
 |--------------------------------------------------------------------------
 | Gestión de mascotas
 |--------------------------------------------------------------------------
-
-
-Route::get('/gestionMascotas', [MascotaController::class, 'create'])->name('gestionMascotas'); // Formulario
-Route::post('/mascotas', [MascotaController::class, 'store'])->name('mascotas.store'); // Guardar
-
-Route::get('/mascotas', [MascotaController::class, 'index'])->name('mascotas.index'); // Listado
-Route::get('/mascotas/{mascota}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit'); // Editar
-Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->name('mascotas.destroy'); // Eliminar
 */
+
+// Mostrar formulario para registrar
+Route::get('/gestionMascotas', [MascotaController::class, 'create'])->name('gestionMascotas'); 
+
+// Guardar cliente
+Route::post('/mascotas', [MascotaController::class, 'store'])->name('mascotas.store'); 
+
+//Ver listado de clientes
+Route::get('/mascotas', [MascotaController::class, 'index'])->name('mascotas.index');
+
+// Editar cliente
+Route::get('/mascotas/{mascota}/edit', [MascotaController::class, 'edit'])->name('mascotas.edit'); 
+
+// Actualizar cliente
+Route::post('/mascotas/{mascota}/update', [MascotaController::class, 'update'])->name('mascotas.update');
+
+// Eliminar cliente
+Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->name('mascotas.destroy'); 
 
 /*
 |--------------------------------------------------------------------------
@@ -114,15 +126,23 @@ Route::delete('/mascotas/{mascota}', [MascotaController::class, 'destroy'])->nam
 |--------------------------------------------------------------------------
 */
 
-//Formulario de registro de historial clinico
-Route::get('/historial', function () {
-    return view('intranet.historialClinicoFormulario');
-})->name('historial');
+// Mostrar formulario para registrar
+Route::get('/gestionHistorial', [HistorialController::class, 'create'])->name('gestionHistorial'); // Formulario
 
-//Tabla de historial clinico
-Route::get('/gestionHistorial', function () {
-    return view('intranet.historialClinicoTabla');
-})->name('gestionHistorial');
+// Guardar historial clínico
+Route::post('/historial', [HistorialController::class, 'store'])->name('historial.store'); // Guardar
+
+//Ver listado de historial clínico
+Route::get('/historial', [HistorialController::class, 'index'])->name('historial.index'); // Listado
+
+// Editar historial clínico
+Route::get('/historial/{historial}/edit', [HistorialController::class, 'edit'])->name('historial.edit'); // Editar
+
+// Actualizar historial clínico
+Route::post('/historial/{historial}/update', [HistorialController::class, 'update'])->name('historial.update');
+
+// Eliminar historial clínico
+Route::delete('/historial/{historial}', [HistorialController::class, 'destroy'])->name('historial.destroy'); // Eliminar
 
 /*
 |--------------------------------------------------------------------------
@@ -130,15 +150,23 @@ Route::get('/gestionHistorial', function () {
 |--------------------------------------------------------------------------
 */
 
-//Formulario de eestión de citas
-Route::get('/citas', function () {
-    return view('intranet.citasFormulario');
-})->name('citas');
+// Mostrar formulario para registrar
+Route::get('/gestionCita', [CitaController::class, 'create'])->name('cita.create');
 
-//Tabla de gestión de citas
-Route::get('/gestionCitas', function () {
-    return view('intranet.citasTabla');
-})->name('gestionCitas');
+// Guardar cita
+Route::post('/cita', [CitaController::class, 'store'])->name('cita.store');
+
+//Ver listado de citas
+Route::get('/citas', [CitaController::class, 'index'])->name('cita.index');
+
+// Editar cita
+Route::get('/cita/{cita}/edit', [CitaController::class, 'edit'])->name('cita.edit');
+
+// Actualizar cita
+Route::post('/cita/{cita}/update', [CitaController::class, 'update'])->name('cita.update');
+
+// Eliminar cita
+Route::delete('/cita/{cita}', [CitaController::class, 'destroy'])->name('cita.destroy');
 
 /*
 |--------------------------------------------------------------------------
@@ -146,15 +174,23 @@ Route::get('/gestionCitas', function () {
 |--------------------------------------------------------------------------
 */
 
-//Formulario de gestión de peluqueria
-Route::get('/peluqueria', function () {
-    return view('intranet.peluqueriaFormulario');
-})->name('peluqueria');
+// Mostrar formulario para registrar
+Route::get('/gestionPeluqueria', [PeluqueriaController::class, 'create'])->name('peluqueria.create');
 
-//Tabla de gestión de peluqueria
-Route::get('/gestionPeluqueria', function () {
-    return view('intranet.peluqueriaTabla');
-})->name('gestionPeluqueria');
+// Guardar cita peluqueria
+Route::post('/peluqueria', [PeluqueriaController::class, 'store'])->name('peluqueria.store');
+
+//Ver listado de citas peluqueria
+Route::get('/peluqueria', [PeluqueriaController::class, 'index'])->name('peluqueria.index');
+
+// Editar cita peluqueria
+Route::get('/peluqueria/{peluqueria}/editar', [PeluqueriaController::class, 'edit'])->name('peluqueria.edit');
+
+// Actualizar cita peluqueria
+Route::post('/peluqueria/{peluqueria}/actualizar', [PeluqueriaController::class, 'update'])->name('peluqueria.update');
+
+// Eliminar cita peluquería
+Route::delete('/peluqueria/{peluqueria}', [PeluqueriaController::class, 'destroy'])->name('peluqueria.destroy');
 
 /*
 |--------------------------------------------------------------------------
@@ -162,16 +198,26 @@ Route::get('/gestionPeluqueria', function () {
 |--------------------------------------------------------------------------
 */
 
-//Formulario de gestión de facturas
-Route::get('/facturas', function () {
-    return view('intranet.facturasFormulario');
-})->name('facturas');
+// Mostrar formulario para registrar
+Route::get('gestionFactura', [FacturaController::class, 'create'])->name('facturas.create');
 
-//Tabla de gestión de facturas
-Route::get('/gestionFacturas', function () {
-    return view('intranet.facturasTabla');
-})->name('gestionFacturas');
+// Guardar factura
+Route::post('/facturas', [FacturaController::class, 'store'])->name('facturas.store');
 
+//Ver listado de facturas
+Route::get('/facturas', [FacturaController::class, 'index'])->name('facturas.index');
+
+// Editar factura
+Route::get('/facturas/{factura}/editar', [FacturaController::class, 'edit'])->name('facturas.edit');
+
+// Actualizar factura
+Route::post('/facturas/{factura}/actualizar', [FacturaController::class, 'update'])->name('facturas.update');
+
+// Eliminar factura
+Route::delete('/facturas/{factura}', [FacturaController::class, 'destroy'])->name('facturas.destroy');
+
+// Generar PDF de una factura
+Route::get('/facturas/{factura}/pdf', [FacturaController::class, 'generatePDF'])->name('facturas.pdf');
 
 
 

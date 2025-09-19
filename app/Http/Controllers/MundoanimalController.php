@@ -30,6 +30,7 @@ class MundoanimalController extends Controller
     /**
      * Carga la vista de preguntas frecuentes junto con la plantilla
      */
+    
     public function faq(PlantillaService $plantilla)
 {
     $plantilla->setTitle('FAQ');

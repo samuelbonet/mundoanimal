@@ -22,29 +22,23 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="text-center">1</td>
-                            <td>Firulais</td>
-                            <td>15/08/2025</td>
-                            <td>Rabia</td>
-                            <td>Sin complicaciones</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="text-center">2</td>
-                            <td>Misu</td>
-                            <td>20/08/2025</td>
-                            <td>Gripe felina</td>
-                            <td>Observación por 24h</td>
-                            <td class="text-center">
-                                <button class="btn btn-sm btn-primary">Editar</button>
-                                <button class="btn btn-sm btn-danger">Eliminar</button>
-                            </td>
-                        </tr>
-                        <!-- Agrega más filas estáticas aquí -->
+                            @foreach($historiales as $historial)
+                                <tr>
+                                    <td class="text-center">{{ $historial->id_historial }}</td>
+                                    <td>{{ $historial->mascota->nombre }} </td>
+                                    <td>{{ $historial->fecha_aplicacion }}</td>
+                                    <td>{{ $historial->vacuna }}</td>
+                                    <td>{{ $historial->observaciones }}</td>
+                                    <td class="text-center">
+                                        <a href="{{ route('historial.edit', $historial->id_historial) }}" class="btn btn-sm btn-primary">Editar</a>
+                                        <form action="{{ route('historial.destroy', $historial->id_historial) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Desea eliminar este historial?')">Eliminar</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                     </tbody>
                 </table>
             </div>

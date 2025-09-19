@@ -9,10 +9,10 @@ class Mascota extends Model
 {
     use HasFactory;
 
-    //Se define clave primaria
+    //Clave primaria
     protected $primaryKey = 'id_mascota';
 
-    //Se define campos
+    //Campos
     protected $fillable = [
         'id_cliente',
         'nombre',
@@ -22,9 +22,9 @@ class Mascota extends Model
         'peso',
     ];
 
+    //Relación: una mascota pertenece a un cliente
     public function cliente()
     {
-        //id_cliente es de la tabla mascotas que hace referencia a tabla clientes
-        return $this->belongsTo(Cliente::class, 'id_cliente');
+        return $this->belongsTo(Cliente::class, 'id_cliente', 'id_cliente');
     }
 }

@@ -30,11 +30,11 @@ return [
     |
     */
 
-    'use_ico_only' => false,
+    'use_ico_only' => true,
     'use_full_favicon' => true,
     'favicon' => [
-    'path' => 'img/index/logo.png',
-],
+    'path' => env('APP_ASSET_URL', 'img/pagina/index/logo.png'),
+    ],
 
     /*
     |--------------------------------------------------------------------------
@@ -330,7 +330,7 @@ return [
         ],
         [
             'text' => 'Registrar cliente',
-            'url' => 'gestionClientes',
+            'url' => 'clientes/crear',
             'icon' => 'fas fa-edit',
         ],
         ['header' => '────────────────────'],
@@ -366,7 +366,7 @@ return [
         ],
         [
             'text' => 'Registrar cita',
-            'url' => 'gestionCitas',
+            'url' => 'gestionCita',
             'icon' => 'fas fa-edit',
         ],
         ['header' => '────────────────────'],
@@ -390,7 +390,7 @@ return [
         ],
         [
             'text' => 'Registrar factura',
-            'url' => 'gestionFacturas',
+            'url' => 'gestionFactura',
             'icon' => 'fas fa-file-invoice',
         ],
         ['header' => '────────────────────'],

@@ -13,14 +13,14 @@ class CitaController extends Controller
     public function index()
     {
         $citas = Cita::with('cliente')->get();
-        return view('intranet.citasTabla', compact('citas'));
+        return view('intranet.citas.citasTabla', compact('citas'));
     }
 
     //Aquí mostrará formulario de edición
     public function edit(Cita $cita)
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.citasFormulario', [
+        return view('intranet.citas.citasFormulario', [
             'mode' => 'update',
             'cita' => $cita,
             'clientes' => $clientes
@@ -32,14 +32,14 @@ class CitaController extends Controller
     public function destroy(Cita $cita)
     {
         $cita->delete();
-        return redirect()->route('cita.index');
+        return redirect()->route('citas.index');
     }
 
     // Muestra formulario en el que se registra una mascota
     public function create()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.citasFormulario', [
+        return view('intranet.citas.citasFormulario', [
             'mode'=> 'create',
             'cita' => null,
             'clientes' => $clientes
@@ -53,12 +53,12 @@ class CitaController extends Controller
             'id_cliente' => 'required|exists:clientes,id_cliente',
             'telefono' => 'required|string|max:20',
             'fecha_aplicacion'     => 'required|date',
-            'motivo_cita'       => 'nullable|string|max:100',
+            'motivo_cita'       => 'required|string|max:100',
         ]);
 
         Cita::create($request->all());
 
-        return redirect()->route('cita.index');
+        return redirect()->route('citas.index');
     }
 
     //Actualizará mascota una vez editado
@@ -68,13 +68,13 @@ class CitaController extends Controller
             'id_cliente' => 'required|exists:clientes,id_cliente',
             'telefono' => 'required|string|max:20',
             'fecha_aplicacion'     => 'required|date',
-            'motivo_cita'       => 'nullable|string|max:100',
+            'motivo_cita'       => 'required|string|max:100',
             
         ]);
 
         $cita->update($request->all());
 
-        return redirect()->route('cita.index');
+        return redirect()->route('citas.index');
     }
 
 }

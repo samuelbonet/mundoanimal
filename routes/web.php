@@ -4,6 +4,7 @@ use App\Http\Controllers\MundoanimalController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\ContactoController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\IntranetController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MascotaController;
 use App\Http\Controllers\CitaController;
@@ -65,6 +66,10 @@ Route::post('/logout', [LoginController::class, 'cerrarSesion'])->name('logout')
 Route::get('/intranet', function () {
     return view('/intranet');
 })->middleware('auth');
+
+
+Route::get('/intranet', [IntranetController::class, 'index'])->name('intranet');
+
 
 // Ruta para cambiar la contraseña del usuario
 Route::get('/cambiarContrasena', [App\Http\Controllers\UserController::class, 'cambiarContrasenaFormulario'])->middleware('auth')->name('password.change');
@@ -150,23 +155,24 @@ Route::delete('/historial/{historial}', [HistorialController::class, 'destroy'])
 |--------------------------------------------------------------------------
 */
 
+// Ver listado de citas
+Route::get('/citas', [CitaController::class, 'index'])->name('citas.index');
+
 // Mostrar formulario para registrar
-Route::get('/gestionCita', [CitaController::class, 'create'])->name('cita.create');
+Route::get('/citas/gestionCita', [CitaController::class, 'create'])->name('citas.create');
 
 // Guardar cita
-Route::post('/cita', [CitaController::class, 'store'])->name('cita.store');
-
-//Ver listado de citas
-Route::get('/citas', [CitaController::class, 'index'])->name('cita.index');
+Route::post('/citas', [CitaController::class, 'store'])->name('citas.store');
 
 // Editar cita
-Route::get('/cita/{cita}/edit', [CitaController::class, 'edit'])->name('cita.edit');
+Route::get('/citas/{cita}/edit', [CitaController::class, 'edit'])->name('citas.edit');
 
 // Actualizar cita
-Route::post('/cita/{cita}/update', [CitaController::class, 'update'])->name('cita.update');
+Route::put('/citas/{cita}', [CitaController::class, 'update'])->name('citas.update');
 
 // Eliminar cita
-Route::delete('/cita/{cita}', [CitaController::class, 'destroy'])->name('cita.destroy');
+Route::delete('/citas/{cita}', [CitaController::class, 'destroy'])->name('citas.destroy');
+
 
 /*
 |--------------------------------------------------------------------------

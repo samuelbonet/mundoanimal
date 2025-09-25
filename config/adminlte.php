@@ -321,7 +321,13 @@ return [
         ],
 
         // Sidebar items:
-        ['header' => 'Panel de trabajo'],
+        ['header' => 'Intranet'],
+        [
+            'text' => 'Dashboard',
+            'url' => 'intranet',
+            'icon' => 'fas fa-chart-bar',
+        ],
+        ['header' => '────────────────────'],
         ['header' => 'Gestión de clientes'],
         [
             'text' => 'Ver clientes',
@@ -366,7 +372,7 @@ return [
         ],
         [
             'text' => 'Registrar cita',
-            'url' => 'gestionCita',
+            'url' => 'citas/gestionCita',
             'icon' => 'fas fa-edit',
         ],
         ['header' => '────────────────────'],

@@ -10,13 +10,13 @@ class ClienteController extends Controller
     public function index()
     {
         $clientes = Cliente::all();
-        return view('intranet.gestionClientesTabla', compact('clientes'));
+        return view('intranet.clientes.gestionClientesTabla', compact('clientes'));
     }
 
     // Aquí mostrará formulario de edición
     public function edit(Cliente $cliente)
     {
-        return view('intranet.gestionClientesFormulario', [
+        return view('intranet.clientes.gestionClientesFormulario', [
             'mode' => 'update',
             'cliente' => $cliente
         ]);
@@ -32,7 +32,7 @@ class ClienteController extends Controller
     // Muestra formulario en el que se registra a cliente
     public function create()
     {
-        return view('intranet.gestionClientesFormulario', [
+        return view('intranet.clientes.gestionClientesFormulario', [
             'mode' => 'create',
             'cliente' => null
         ]);

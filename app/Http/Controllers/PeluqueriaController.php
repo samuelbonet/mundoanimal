@@ -12,14 +12,14 @@ class PeluqueriaController extends Controller
     public function index()
     {
         $peluquerias = Peluqueria::with('cliente')->get();
-        return view('intranet.peluqueriaTabla', compact('peluquerias'));
+        return view('intranet.peluqueria.peluqueriaTabla', compact('peluquerias'));
     }
 
     // Mostrar formulario de creación
     public function create()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.peluqueriaFormulario', [
+        return view('intranet.peluqueria.peluqueriaFormulario', [
             'mode' => 'create',
             'peluqueria' => null,
             'clientes' => $clientes
@@ -31,6 +31,7 @@ class PeluqueriaController extends Controller
     {
         $request->validate([
             'id_cliente' => 'required|exists:clientes,id_cliente',
+            'hora_corte' => 'required|date_format:Y-m-d\TH:i',
             'tipo_corte' => 'required|string|max:50',
             'bano' => 'nullable|boolean',
             'observaciones' => 'nullable|string|max:255',
@@ -45,7 +46,7 @@ class PeluqueriaController extends Controller
     public function edit(Peluqueria $peluqueria)
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.peluqueriaFormulario', [
+        return view('intranet.peluqueria.peluqueriaFormulario', [
             'mode' => 'update',
             'peluqueria' => $peluqueria,
             'clientes' => $clientes
@@ -57,6 +58,7 @@ class PeluqueriaController extends Controller
     {
         $request->validate([
             'id_cliente' => 'required|exists:clientes,id_cliente',
+            'hora_corte' => 'required|date_format:Y-m-d\TH:i',
             'tipo_corte' => 'required|string|max:50',
             'bano' => 'nullable|boolean',
             'observaciones' => 'nullable|string|max:255',

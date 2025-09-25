@@ -78,7 +78,7 @@
                     @enderror
                 </div>
 
-                {{-- Boto+ón registrar --}}
+                {{-- Botón registrar --}}
                 <div class="d-grid">
                     <button type="submit" class="btn btn-success">
                         {{ $mode == 'create' ? 'Registrar' : 'Editar'}} Cliente

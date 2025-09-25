@@ -13,14 +13,14 @@ class MascotaController extends Controller
     public function index()
     {
         $mascotas = Mascota::with('cliente')->get();
-        return view('intranet.gestionMascotasTabla', compact('mascotas'));
+        return view('intranet.mascotas.gestionMascotasTabla', compact('mascotas'));
     }
 
     //Aquí mostrará formulario de edición
     public function edit(Mascota $mascota)
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.gestionMascotasFormulario', [
+        return view('intranet.mascotas.gestionMascotasFormulario', [
             'mode' => 'update',
             'mascota' => $mascota,
             'clientes' => $clientes
@@ -38,7 +38,7 @@ class MascotaController extends Controller
     public function create()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.gestionMascotasFormulario', [
+        return view('intranet.mascotas.gestionMascotasFormulario', [
             'mode'=> 'create',
             'mascota' => null,
             'clientes' => $clientes

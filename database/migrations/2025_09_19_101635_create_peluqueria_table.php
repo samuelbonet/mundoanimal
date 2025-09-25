@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('peluquerias', function (Blueprint $table) {
             $table->id('id_peluqueria');
             $table->unsignedBigInteger('id_cliente'); // FK hacia clientes
+            $table->dateTime('hora_corte');
             $table->string('tipo_corte', 50)->nullable(); 
             $table->boolean('bano')->default(false); 
             $table->text('observaciones')->nullable(); 

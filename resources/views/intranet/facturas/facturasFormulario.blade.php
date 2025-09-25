@@ -29,7 +29,6 @@
             <form action="{{ $mode === 'create' ? route('facturas.store') : route('facturas.update', $factura->id_factura) }}" method="POST">
                 @csrf
                 @if($mode === 'update')
-                    {{-- Si quieres mantener POST en lugar de PUT, no hace falta @method('PUT') --}}
                 @endif
 
                 {{-- Cliente --}}

@@ -25,9 +25,15 @@ class Peluqueria extends Model
     protected $fillable = [
         'id_cliente',
         'mascota_id',
+        'hora_corte',
         'tipo_corte',
         'bano',
         'observaciones',
+    ];
+
+    //Convierte el campo a datetime
+    protected $casts = [
+        'hora_corte' => 'datetime:H:i',
     ];
 
     //Relación: Una cita de peluquería pertenece a un cliente.

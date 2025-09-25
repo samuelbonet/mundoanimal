@@ -14,14 +14,14 @@ class FacturaController extends Controller
     public function index()
     {
         $facturas = Factura::with('cliente')->get();
-        return view('intranet.facturasTabla', compact('facturas'));
+        return view('intranet.facturas.facturasTabla', compact('facturas'));
     }
 
     //Crear factura
     public function create()
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.facturasFormulario', [
+        return view('intranet.facturas.facturasFormulario', [
             'mode' => 'create',
             'factura' => null,
             'clientes' => $clientes
@@ -40,14 +40,14 @@ class FacturaController extends Controller
 
         Factura::create($request->all());
 
-        return redirect()->route('facturas.index')->with('success', 'Factura creada correctamente.');
+        return redirect()->route('facturas.index');
     }
 
     //Editar factura
     public function edit(Factura $factura)
     {
         $clientes = Cliente::orderBy('nombre')->get();
-        return view('intranet.facturasFormulario', [
+        return view('intranet.facturas.facturasFormulario', [
             'mode' => 'update',
             'factura' => $factura,
             'clientes' => $clientes
@@ -79,7 +79,7 @@ class FacturaController extends Controller
     public function generatePDF(Factura $factura)
 {
     // Cargar la vista con los datos de la factura
-    $pdf = PDF::loadView('intranet.facturaPDF', compact('factura'));
+    $pdf = PDF::loadView('intranet.facturas.facturaPDF', compact('factura'));
 
     // Descargar el PDF con nombre dinámico
     return $pdf->download('Factura_' . $factura->id_factura . '.pdf');

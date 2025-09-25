@@ -14,14 +14,14 @@ class HistorialController extends Controller
     public function index()
     {
         $historiales = Historial::with('mascota')->get();
-        return view('intranet.historialClinicoTabla', compact('historiales'));
+        return view('intranet.historiales.historialClinicoTabla', compact('historiales'));
     }
 
     //Aquí mostrará formulario de edición
     public function edit(Historial $historial)
     {
         $mascotas = Mascota::orderBy('nombre')->get();
-        return view('intranet.historialClinicoFormulario', [
+        return view('intranet.historiales.historialClinicoFormulario', [
             'mode' => 'update',
             'historial' => $historial,
             'mascotas' => $mascotas
@@ -39,7 +39,7 @@ class HistorialController extends Controller
     public function create()
     {
         $mascotas = Mascota::orderBy('nombre')->get();
-        return view('intranet.historialClinicoFormulario', [
+        return view('intranet.historiales.historialClinicoFormulario', [
             'mode' => 'create',
             'historial'=> null,
             'mascotas' => $mascotas
